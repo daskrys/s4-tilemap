@@ -59,7 +59,7 @@ function drawTexture(row: number, col: number, ctx: CanvasRenderingContext2D, im
 
 
 // ----- Interacting with the main tilemap -----
-/*
+
 function redrawTilemap()
 {
   gridCtx.clearRect(0, 0, gridCanvas.width, gridCanvas.height);
@@ -68,9 +68,9 @@ function redrawTilemap()
             drawTexture(i, j, gridCtx, tilemap[i][j], gridCanvas.width / numTiles, gridCanvas.height / numTiles, tileSize);
         }
     }
-}*/
+}
 
-function redrawTilemap(i: number, j: number)
+function redrawTilemap2(i: number, j: number)
 {
   drawTexture(i, j, gridCtx, tilemap[i][j], gridCanvas.width / numTiles, gridCanvas.height / numTiles, tileSize);
 }
@@ -81,7 +81,7 @@ gridCanvas.addEventListener("click", (e) => {
     const coordY = Math.trunc(e.offsetY / tileSize);
 
     tilemap[coordX][coordY].src = currentTile;
-    redrawTilemap(coordX, coordY);
+    redrawTilemap2(coordX, coordY);
     //redrawTilemap();
 })
 
