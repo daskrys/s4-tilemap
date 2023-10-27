@@ -1,13 +1,11 @@
 import "./style.css";
 
-
 //setting up the multiple canvases
 const gridCanvas = document.getElementById("gridCanvas") as HTMLCanvasElement;
 const gridCtx = gridCanvas.getContext("2d") as CanvasRenderingContext2D;
 
 const selectCanvas = document.getElementById("selectCanvas") as HTMLCanvasElement;
 const selectCtx = selectCanvas.getContext("2d") as CanvasRenderingContext2D;
-
 
 //defining the textures to use
 const imageUrls = [
@@ -21,7 +19,6 @@ const imageUrls = [
     "/tile8.png"
 ];
 
-
 //defining the size of the main grid
 const numTiles:number = 32;
 const tileSize: number = gridCanvas.width / numTiles;
@@ -31,9 +28,9 @@ const tileSize: number = gridCanvas.width / numTiles;
 const numSelectables: number = imageUrls.length;
 const selectHeight:number = selectCanvas.height / numSelectables;
 
-
 //creating the tilemap nested array
 let tilemap: HTMLImageElement[][] = new Array(numTiles);
+// need to refactor the code below to optimize memory usage
 
 for(let i = 0; i < numTiles; i++) {
     let row = new Array(numTiles);
@@ -62,7 +59,7 @@ function drawTexture(row: number, col: number, ctx: CanvasRenderingContext2D, im
 
 
 // ----- Interacting with the main tilemap -----
-
+/*
 function redrawTilemap()
 {
   gridCtx.clearRect(0, 0, gridCanvas.width, gridCanvas.height);
@@ -71,6 +68,11 @@ function redrawTilemap()
             drawTexture(i, j, gridCtx, tilemap[i][j], gridCanvas.width / numTiles, gridCanvas.height / numTiles, tileSize);
         }
     }
+}*/
+
+function redrawTilemap(i: number, j: number)
+{
+  drawTexture(i, j, gridCtx, tilemap[i][j], gridCanvas.width / numTiles, gridCanvas.height / numTiles, tileSize);
 }
 
 
@@ -79,7 +81,8 @@ gridCanvas.addEventListener("click", (e) => {
     const coordY = Math.trunc(e.offsetY / tileSize);
 
     tilemap[coordX][coordY].src = currentTile;
-    redrawTilemap();
+    redrawTilemap(coordX, coordY);
+    //redrawTilemap();
 })
 
 
